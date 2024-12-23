@@ -13,7 +13,6 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as LayoutImport } from './routes/_layout'
 import { Route as IndexImport } from './routes/index'
 
 // Create Virtual Routes
@@ -24,11 +23,6 @@ const ProductsProductIdEditLazyImport = createFileRoute(
 )()
 
 // Create/Update Routes
-
-const LayoutRoute = LayoutImport.update({
-  id: '/_layout',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -61,13 +55,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/_layout': {
-      id: '/_layout'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof LayoutImport
-      parentRoute: typeof rootRoute
-    }
     '/products/add': {
       id: '/products/add'
       path: '/products/add'
@@ -89,14 +76,12 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '': typeof LayoutRoute
   '/products/add': typeof ProductsAddLazyRoute
   '/products/$productId/edit': typeof ProductsProductIdEditLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '': typeof LayoutRoute
   '/products/add': typeof ProductsAddLazyRoute
   '/products/$productId/edit': typeof ProductsProductIdEditLazyRoute
 }
@@ -104,35 +89,27 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/_layout': typeof LayoutRoute
   '/products/add': typeof ProductsAddLazyRoute
   '/products/$productId/edit': typeof ProductsProductIdEditLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '' | '/products/add' | '/products/$productId/edit'
+  fullPaths: '/' | '/products/add' | '/products/$productId/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/products/add' | '/products/$productId/edit'
-  id:
-    | '__root__'
-    | '/'
-    | '/_layout'
-    | '/products/add'
-    | '/products/$productId/edit'
+  to: '/' | '/products/add' | '/products/$productId/edit'
+  id: '__root__' | '/' | '/products/add' | '/products/$productId/edit'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  LayoutRoute: typeof LayoutRoute
   ProductsAddLazyRoute: typeof ProductsAddLazyRoute
   ProductsProductIdEditLazyRoute: typeof ProductsProductIdEditLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  LayoutRoute: LayoutRoute,
   ProductsAddLazyRoute: ProductsAddLazyRoute,
   ProductsProductIdEditLazyRoute: ProductsProductIdEditLazyRoute,
 }
@@ -148,16 +125,12 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/_layout",
         "/products/add",
         "/products/$productId/edit"
       ]
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/_layout": {
-      "filePath": "_layout.tsx"
     },
     "/products/add": {
       "filePath": "products/add.lazy.tsx"

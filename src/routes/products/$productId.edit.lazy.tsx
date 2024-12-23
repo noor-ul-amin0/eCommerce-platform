@@ -1,6 +1,6 @@
 import { useProduct, useUpdateProduct } from "@/queries/product.queries";
 import { createLazyFileRoute } from "@tanstack/react-router";
-import { ProductForm } from "@/components/product-form";
+import { ProductForm } from "@/components/products/product-form";
 import { notification } from "antd";
 
 export const Route = createLazyFileRoute("/products/$productId/edit")({

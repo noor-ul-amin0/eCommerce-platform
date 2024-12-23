@@ -1,7 +1,11 @@
 import { axios } from "./axios";
 
-export const fetchProducts = async (): Promise<Products> => {
-  const response = await axios.get("/products/search");
+export const fetchProducts = async (
+  queryParams?: Record<string, unknown>
+): Promise<Products> => {
+  const response = await axios.get("/products/search", {
+    params: queryParams,
+  });
   return response.data;
 };
 

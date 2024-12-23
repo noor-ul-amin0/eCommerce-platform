@@ -1,7 +1,7 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { notification } from "antd";
 import { useAddProduct } from "@/queries/product.queries";
-import { ProductForm } from "@/components/product-form";
+import { ProductForm } from "@/components/products/product-form";
 
 export const Route = createLazyFileRoute("/products/add")({
   component: AddProductPage,

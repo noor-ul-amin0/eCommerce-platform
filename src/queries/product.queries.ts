@@ -1,21 +1,15 @@
 import { api } from "@/api";
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-  useSuspenseQuery,
-} from "@tanstack/react-query";
-import { productsQueryOptions } from "./products.query-options";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-// export const useProducts = () => {
-//   return useQuery({
-//     queryKey: ["products"],
-//     queryFn: api.product.fetchProducts,
-//   });
-// };
-export const useProducts = () => {
-  return useSuspenseQuery(productsQueryOptions);
+export const useProducts = (queryParams: Record<string, unknown>) => {
+  return useQuery({
+    queryKey: ["products", queryParams],
+    queryFn: () => api.product.fetchProducts(queryParams),
+  });
 };
+// export const useProducts = (queryParams: Record<string, unknown>) => {
+//   return useSuspenseQuery(productsQueryOptions(queryParams));
+// };
 
 export const useProduct = (id: string) => {
   return useQuery({
