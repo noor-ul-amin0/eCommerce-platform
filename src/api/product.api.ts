@@ -1,7 +1,7 @@
 import { axios } from "./axios";
 
 export const fetchProducts = async (): Promise<Products> => {
-  const response = await axios.get("/products");
+  const response = await axios.get("/products/search");
   return response.data;
 };
 
