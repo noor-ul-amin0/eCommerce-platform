@@ -1,7 +1,7 @@
 import React from "react";
-import { Card, Skeleton } from "antd";
+import { Card, Col, Row, Skeleton } from "antd";
 
-export const ProductCardSkeleton: React.FC = () => (
+const ProductCardSkeleton: React.FC = () => (
   <Card className="relative bg-[#fafdfc]" hoverable>
     <div className="flex justify-center">
       <Skeleton.Image active className="object-cover w-auto h-32" />
@@ -13,3 +13,17 @@ export const ProductCardSkeleton: React.FC = () => (
     </div>
   </Card>
 );
+
+export const ProductsSkeleton: React.FC<{ length?: number }> = ({
+  length = 6,
+}) => {
+  return (
+    <Row gutter={[16, 16]}>
+      {Array.from({ length }).map((_, index) => (
+        <Col key={index} xs={24} sm={12} md={8}>
+          <ProductCardSkeleton />
+        </Col>
+      ))}
+    </Row>
+  );
+};

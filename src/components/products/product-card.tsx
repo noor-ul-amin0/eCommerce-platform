@@ -3,6 +3,7 @@ import { Card } from "antd";
 import { EditFilled, ShoppingCartOutlined } from "@ant-design/icons";
 import { ProductDetailsModal } from "./product-details-modal";
 import { useNavigate } from "@tanstack/react-router";
+import { useCartStore } from "@/store/cart.store";
 
 interface ProductCardProps {
   product: Product;
@@ -11,6 +12,8 @@ interface ProductCardProps {
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const navigate = useNavigate();
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const addToCart = useCartStore((state) => state.addItem);
 
   const openModal = () => {
     setIsModalVisible(true);
@@ -23,6 +26,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     navigate({ to: `/products/${product.id}/edit` });
+  };
+
+  const handleAddToCart = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    addToCart(product, 1);
   };
 
   return (
@@ -47,7 +55,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product.discountPercentage}%
           </sup>
         </p>
-        <ShoppingCartOutlined className="absolute text-white z-10 bottom-2 right-2 size-8 bg-[#00a599] hover:bg-[#00a599]/80 border-none rounded-lg flex justify-center" />
+        <ShoppingCartOutlined
+          className="absolute text-white z-10 bottom-2 right-2 size-8 bg-brand hover:bg-brand-light border-none rounded-lg flex justify-center cursor-pointer"
+          onClick={handleAddToCart}
+        />
       </Card>
       <ProductDetailsModal
         visible={isModalVisible}

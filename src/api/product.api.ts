@@ -1,10 +1,12 @@
 import { axios } from "./axios";
 
 export const fetchProducts = async (
-  queryParams?: Record<string, unknown>
+  searchQuerys?: string,
+  limit?: number,
+  skip?: number
 ): Promise<Products> => {
   const response = await axios.get("/products/search", {
-    params: queryParams,
+    params: { q: searchQuerys, limit, skip },
   });
   return response.data;
 };
@@ -27,5 +29,16 @@ export const createProduct = async (product: Product): Promise<Product> => {
 export const updateProduct = async (product: Product): Promise<Product> => {
   const { id, ...rest } = product;
   const response = await axios.put(`/products/${id}`, rest);
+  return response.data;
+};
+
+export const fetchProductsByCategory = async (
+  category: string,
+  limit?: number,
+  skip?: number
+): Promise<Products> => {
+  const response = await axios.get(`/products/category/${category}`, {
+    params: { limit, skip },
+  });
   return response.data;
 };

@@ -1,9 +1,10 @@
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
-import { Drawer } from "antd";
+import { ConfigProvider, Drawer } from "antd";
 import { useState } from "react";
 import { Header } from "@/components/header";
 import type { QueryClient } from "@tanstack/react-query";
+import { CartDrawer } from "@/components/cart/cart-drawer";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
@@ -24,21 +25,25 @@ function RootComponent() {
   };
 
   return (
-    <div className="bg-white ">
-      <Header openCart={openCart} />
-      <Drawer
-        title="Cart"
-        placement="right"
-        onClose={closeCart}
-        open={isCartVisible}
-      >
-        {/* Cart items will be displayed here */}
-      </Drawer>
-      <div className="container p-5 mx-auto">
-        <Outlet />
+    <ConfigProvider
+      theme={{
+        cssVar: true,
+        components: {
+          Button: {
+            colorPrimaryHover: "#00696a",
+          },
+        },
+      }}
+    >
+      <div className="bg-white ">
+        <Header openCart={openCart} />
+        <CartDrawer open={isCartVisible} onClose={closeCart} />
+        <div className="container p-5 mx-auto">
+          <Outlet />
+        </div>
+        <TanStackRouterDevtools />
       </div>
-      <TanStackRouterDevtools />
-    </div>
+    </ConfigProvider>
   );
 }
 

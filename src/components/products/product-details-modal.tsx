@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Button, Rate, InputNumber } from "antd";
+import { useCartStore } from "@/store/cart.store";
 
 interface ProductDetailsModalProps {
   visible: boolean;
@@ -12,6 +13,14 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
   onClose,
   product,
 }) => {
+  const [quantity, setQuantity] = useState(1);
+  const addToCart = useCartStore((state) => state.addItem);
+
+  const handleAddToCart = () => {
+    addToCart(product, quantity);
+    onClose();
+  };
+
   return (
     <Modal
       open={visible}
@@ -19,14 +28,18 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
       footer={[
         <div className="flex flex-col items-start space-y-1">
           <label className="text-sm font-medium text-gray-700">Quantity</label>
-          <InputNumber size="middle" min={1} max={10} defaultValue={1} />
+          <InputNumber
+            size="middle"
+            min={1}
+            max={10}
+            value={quantity}
+            onChange={(value) => setQuantity(value || 1)}
+          />
         </div>,
         <Button
-          className="bg-[#00696a] text-white"
+          className="bg-brand text-white hover:bg-brand-light"
           shape="round"
-          onClick={() => {
-            // Handle add to cart action
-          }}
+          onClick={handleAddToCart}
         >
           Add to Cart
         </Button>,

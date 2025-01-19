@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { Form, Input, Button, Select, Upload, InputNumber } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Select,
+  Upload,
+  InputNumber,
+} from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { useProductCategories } from "@/queries/product.queries";
 
@@ -190,15 +197,16 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         <div className="flex justify-between mt-4">
           <Button
             onClick={() => window.history.back()}
-            className="border border-[#00696a] text-[#00696a]"
+            className="border border-brand text-brand"
             shape="round"
             variant="outlined"
           >
             Go Back
           </Button>
+
           <Button
             htmlType="submit"
-            className="bg-[#00696a] text-white"
+            className="bg-brand text-white"
             shape="round"
             loading={isLoading}
           >

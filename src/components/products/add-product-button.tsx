@@ -10,7 +10,7 @@ export const AddProductButton: React.FC = () => {
   };
   return (
     <Button
-      className="bg-[#00696a] text-white"
+      className="bg-brand text-white hover:bg-brand-light"
       shape="round"
       onClick={handleClick}
     >

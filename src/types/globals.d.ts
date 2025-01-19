@@ -22,6 +22,13 @@ declare global {
     limit: number;
   }
 
+  type ProductUserFilters = {
+    q: string;
+    category: string;
+    page: number;
+    pageSize: number;
+  };
+
   type Category = string;
 }
 

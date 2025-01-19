@@ -1,7 +1,8 @@
 import React from "react";
 import { Row, Col } from "antd";
 import { ProductCard } from "./product-card";
-import { ProductCardSkeleton } from "../skeletons/product-card-skeleton";
+import { ProductsSkeleton } from "../skeletons/product-card-skeleton";
+import { NoProducts } from "./no-products";
 
 interface ProductsProps {
   products: Product[];
@@ -10,15 +11,11 @@ interface ProductsProps {
 
 export const Products: React.FC<ProductsProps> = ({ products, isLoading }) => {
   if (isLoading) {
-    return (
-      <Row gutter={[16, 16]}>
-        {Array.from({ length: 6 }).map((_, index) => (
-          <Col key={index} xs={24} sm={12} md={8}>
-            <ProductCardSkeleton />
-          </Col>
-        ))}
-      </Row>
-    );
+    return <ProductsSkeleton />;
+  }
+
+  if (!products.length) {
+    return <NoProducts />;
   }
 
   return (

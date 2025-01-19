@@ -26,7 +26,10 @@ function AddProductPage() {
           description: "The product has been added successfully.",
         });
         setTimeout(() => {
-          navigate({ to: "/" });
+          navigate({
+            to: "/",
+            search: { page: 1, pageSize: 9, category: "", q: "" },
+          });
         }, 2000);
       },
       onError: () => {

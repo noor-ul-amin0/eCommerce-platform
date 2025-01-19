@@ -1,10 +1,31 @@
 import { api } from "@/api";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 
-export const useProducts = (queryParams: Record<string, unknown>) => {
+export const useProducts = (
+  queryParams?: ProductUserFilters & { skip?: number; limit?: number }
+) => {
   return useQuery({
     queryKey: ["products", queryParams],
-    queryFn: () => api.product.fetchProducts(queryParams),
+    placeholderData: keepPreviousData,
+    queryFn: () => {
+      if (queryParams?.category) {
+        return api.product.fetchProductsByCategory(
+          queryParams.category,
+          queryParams?.limit,
+          queryParams?.skip
+        );
+      }
+      return api.product.fetchProducts(
+        queryParams?.q,
+        queryParams?.limit,
+        queryParams?.skip
+      );
+    },
   });
 };
 // export const useProducts = (queryParams: Record<string, unknown>) => {
@@ -62,5 +83,13 @@ export const useUpdateProduct = () => {
         queryKey: ["product", updatedProduct.id],
       });
     },
+  });
+};
+
+export const useProductsByCategory = (category: string) => {
+  return useQuery({
+    queryKey: ["products-by-category", category],
+    queryFn: () => api.product.fetchProductsByCategory(category),
+    enabled: !!category, // Only run the query if a category is selected
   });
 };
