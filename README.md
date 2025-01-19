@@ -49,7 +49,7 @@ A modern eCommerce platform built with React, TypeScript, and Ant Design. This a
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/ecommerce-platform.git
+git clone https://github.com/noor-ul-amin0/eCommerce-platform
 ```
 
 2. Install dependencies:
@@ -180,7 +180,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🤝 Support
 
-For support, email support@example.com or create an issue in the repository.
+For support, email noorulamindev0@gmail.com or create an issue in the repository.
 
 ## 🙏 Acknowledgments
 
